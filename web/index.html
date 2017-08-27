@@ -6,11 +6,124 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Simile finder</title>
     <link rel="shortcut icon" href="./css/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <h1>Hello world</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div style="height: 100px; border: 1px solid black;"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>Number of words</label>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group form-group-sm">
+                            <label class="control-label" for="numWords_left">Left</label>
+                            <input type="text" min="1" max="20" class="form-control" id="numWords_left" value="5">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            <label class="control-label" for="connectingWord">Connecting word</label>
+                            <select class="form-control" id="connectingWord">
+                                <option value="like">like</option>
+                                <option value="as">as...as</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group form-group-sm">
+                            <label class="control-label" for="numWords_right">Right</label>
+                            <input type="number" min="1" max="20" class="form-control" id="numWords_right" value="5">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="zoonym" class="control-label">Select zoonym</label>
+                    <select id="zoonym" multiple size="10" class="form-control">
+                        <option value="dog">dog</option>
+                        <option value="wolf">wolf</option>
+                        <option value="horse">horse</option>
+                        <option value="cat">cat</option>
+                        <option value="dog">dog</option>
+                        <option value="wolf">wolf</option>
+                        <option value="horse">horse</option>
+                        <option value="cat">cat</option>
+                        <option value="dog">dog</option>
+                        <option value="wolf">wolf</option>
+                        <option value="horse">horse</option>
+                        <option value="cat">cat</option>
+                        <option value="dog">dog</option>
+                        <option value="wolf">wolf</option>
+                        <option value="horse">horse</option>
+                        <option value="cat">cat</option>
+                        <option value="dog">dog</option>
+                        <option value="wolf">wolf</option>
+                        <option value="horse">horse</option>
+                        <option value="cat">cat</option>
+                        <option value="dog">dog</option>
+                        <option value="wolf">wolf</option>
+                        <option value="horse">horse</option>
+                        <option value="cat">cat</option>
+                        <option value="dog">dog</option>
+                        <option value="wolf">wolf</option>
+                        <option value="horse">horse</option>
+                        <option value="cat">cat</option>
+                        <option value="dog">dog</option>
+                        <option value="wolf">wolf</option>
+                        <option value="horse">horse</option>
+                        <option value="cat">cat</option>
+                        <option value="dog">dog</option>
+                        <option value="wolf">wolf</option>
+                        <option value="horse">horse</option>
+                        <option value="cat">cat</option>
+                        <option value="dog">dog</option>
+                        <option value="wolf">wolf</option>
+                        <option value="horse">horse</option>
+                        <option value="cat">cat</option>
+                        <option value="dog">dog</option>
+                        <option value="wolf">wolf</option>
+                        <option value="horse">horse</option>
+                        <option value="cat">cat</option>
+                    </select>
+                </div>
+                <div class="form-group form-group-sm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn btn-default btn-block" id="manage_zoonyms">Manage zoonyms</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-primary btn-block" id="find">Find</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Results</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Result 1</td></tr>
+                        <tr><td>Result 2</td></tr>
+                        <tr><td>Result 3</td></tr>
+                        <tr><td>Result 4</td></tr>
+                        <tr><td>Result 5</td></tr>
+                        <tr><td>Result 6</td></tr>
+                        <tr><td>Result 7</td></tr>
+                        <tr><td>Result 8</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
     <script src="./js/script.js"></script>
 </body>
 </html>
