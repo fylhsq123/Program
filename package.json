@@ -7,6 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
   },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "browser": true,
+      "es6": true
+    }
+  },
   "author": "Heptinh Tamila",
   "license": "ISC",
   "dependencies": {
