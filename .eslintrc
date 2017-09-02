@@ -1,0 +1,52 @@
+{
+    "env": {
+        "commonjs": true,
+        "es6": true,
+        "node": true,
+        "mocha": true,
+        "browser": true,
+        "jquery": true
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-const-assign": "warn",
+        "no-this-before-super": "warn",
+        "no-undef": "warn",
+        "no-unreachable": "warn",
+        "no-unused-vars": "warn",
+        "constructor-super": "warn",
+        "valid-typeof": "warn",
+        "arrow-spacing": "error",
+        "camelcase": "error",
+        "computed-property-spacing": "error",
+        "eqeqeq": "error",
+        "global-require": "error",
+        "indent": "error",
+        "jsx-quotes": "error",
+        "key-spacing": "error",
+        "keyword-spacing": "error",
+        "no-duplicate-imports": "error",
+        "no-duplicate-case": "error",
+        "no-extra-parens": "error",
+        "no-mixed-spaces-and-tabs": "error",
+        "no-multi-spaces": "error",
+        "no-multiple-empty-lines": "error",
+        "no-trailing-spaces": "error",
+        "no-unused-expressions": "error",
+        "no-unused-labels": "error",
+        "object-curly-spacing": "error",
+        "no-whitespace-before-property": "error",
+        "quotes": ["error", "single"],
+        "space-before-function-paren": "error",
+        "space-infix-ops": "error",
+        "space-before-blocks": "error",
+        "space-unary-ops": "error",
+        "strict": "error",
+        "semi": ["error", "always"]
+    }
+}
