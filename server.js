@@ -12,10 +12,30 @@ app.use(express.static(__dirname + '/web'));
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
-})
+});
+
+function clientErrorHandler (err, req, res, next) {
+    res.status(500)
+        .send({
+            'success': false,
+            'response': {
+                'msg': err.msg || err.message
+            }
+        });
+    next();
+}
+app.use(clientErrorHandler);
+
+// handle requests with wrong address
+app.use(function (req, res) {
+    res.status(404)
+        .send({
+            url: '\'' + req.originalUrl + '\' not found'
+        });
+});
 
 Routes(app);
 
 app.listen(config.server.port, config.server.host, function () {
-    console.log(`Server ${config.server.host} is listening on port ${config.server.port}`)
-})
+    console.log(`Server ${config.server.host} is listening on port ${config.server.port}`);
+});
