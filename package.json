@@ -12,6 +12,7 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
+    "find-in-files": "^0.4.0",
     "mongodb": "^2.2.31"
   },
   "devDependencies": {
