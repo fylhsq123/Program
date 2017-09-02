@@ -1,9 +1,9 @@
 module.exports = {
     db: {
-        url: 'localhost:27017'
+        url: 'mongodb://localhost:27017/simile_finder'
     },
     server: {
         host: 'localhost',
         port: 8080
     }
-}
+};
