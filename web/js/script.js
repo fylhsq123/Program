@@ -1,40 +1,40 @@
-function sendRequest(url, config, callback) {
+function sendRequest (url, config, callback) {
     $.ajax(url, config).done(function (res) {
         callback(null, res);
     }).fail(function (err) {
-        callback(err)
-    })
+        callback(err);
+    });
 }
 
-function isValidNumber(number) {
-    return number.length != 0 ? !/\D/.test(number) : false;
+function isValidNumber (number) {
+    return number.length !== 0 ? !/\D/.test(number) : false;
 }
 
-function validateNumbers(e) {
+function validateNumbers () {
     var _this = $(this);
     if (isValidNumber(_this.val())) {
-        _this.parent().removeClass('has-error')
+        _this.parent().removeClass('has-error');
     } else {
-        _this.parent().addClass('has-error')
+        _this.parent().addClass('has-error');
     }
 }
 
-function setValidators() {
-    $('#numWords_left').keyup(validateNumbers)
-    $('#numWords_right').keyup(validateNumbers)
+function setValidators () {
+    $('#numWords_left').keyup(validateNumbers);
+    $('#numWords_right').keyup(validateNumbers);
 }
 
-function setEventListeners() {
-    $('#manage_zoonyms').click(function (e) {
+function setEventListeners () {
+    $('#manage_zoonyms').click(function () {
         alert('clicked');
-    })
-    $('#find').click(function (e) {
+    });
+    $('#find').click(function () {
         if (isValidNumber($('#numWords_left').val() && $('#numWords_right').val())) {
             sendRequest('/findSimile/' + $('#connectingWord').val(), {
                 method: 'GET',
                 data: {
-                    num_left: $('#numWords_left').val(),
-                    num_right: $('#numWords_right').val(),
+                    numLeft: $('#numWords_left').val(),
+                    numRight: $('#numWords_right').val(),
                     zoonym: $('#zoonym').val()
                 }
             }, function (err, res) {
@@ -43,12 +43,12 @@ function setEventListeners() {
                 } else {
                     console.log(res);
                 }
-            })
+            });
         }
-    })
+    });
 }
 
-function init() {
+function init () {
     setValidators();
     setEventListeners();
 }
