@@ -14,6 +14,9 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+Routes(app);
+
+// handle server errors
 function clientErrorHandler (err, req, res, next) {
     res.status(500)
         .send({
@@ -34,7 +37,6 @@ app.use(function (req, res) {
         });
 });
 
-Routes(app);
 
 app.listen(config.server.port, config.server.host, function () {
     console.log(`Server ${config.server.host} is listening on port ${config.server.port}`);
