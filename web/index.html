@@ -12,10 +12,10 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div style="height: 100px; border: 1px solid black;"></div>
+            <header class="header"><span>Zoomorphic Simile Finder</span></header>
         </div>
-        <div class="row">
-            <div class="col-md-3">
+        <div class="row content">
+            <div class="col-md-3 padding-fix vertical-separator">
                 <div class="form-group form-group-sm">
                     <label for="filesList" class="control-label">Select file</label>
                     <select id="filesList" class="form-control"></select>
@@ -43,18 +43,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group form-group-sm">
+                <div class="form-group form-group-sm" style="margin-top: 10px;">
                     <label for="zoonym" class="control-label">Select zoonym</label>
-                    <select id="zoonym" multiple size="10" class="form-control">
-                    </select>
+                    <div id="selectors_zoonym" class="btn-group-sm pull-right" style="margin-top: -10px;" role="group">
+                        <button type="button" class="btn btn-default select-all" aria-label="Select All" title="Select All">
+                            <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-default unselect-all" aria-label="Unselect All" title="Unselect All">
+                            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <select id="zoonym" multiple size="10" class="form-control"></select>
                 </div>
                 <div class="form-group form-group-sm">
                     <div class="row">
                         <div class="col-md-6">
-                            <button class="btn btn-default btn-block" id="manage_zoonyms">Manage zoonyms</button>
+                            <button class="btn btn-default btn-block" id="manage_zoonyms" data-toggle="modal" data-target="#manage_zoonyms_dialog">Manage zoonyms</button>
                         </div>
                         <div class="col-md-6">
-                            <button class="btn btn-primary btn-block" id="find">Find</button>
+                            <button class="btn btn-primary btn-block btn-green" id="find">Find</button>
                         </div>
                     </div>
                 </div>
@@ -70,6 +77,28 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="manage_zoonyms_dialog" tabindex="-1" role="dialog" aria-labelledby="dialogLabel">
+        <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="dialogLabel">Manage zoonyms</h4>
+            </div>
+            <div class="modal-body">
+            ...
+            </div>
+            <div class="modal-footer">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="new_zoonym" placeholder="New zoonym">
+                    </div>
+                    <button type="button" class="btn btn-primary btn-green" id="add_new_zoonym">Add new</button>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
 

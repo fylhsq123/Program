@@ -1,3 +1,54 @@
-h1 {
-    color: red;
+body {
+    background-color: #F4FFEE;
+}
+/* HEADER */
+.header {
+    height: 170px;
+    background: #59AD33 url('./images/animals.jpg') no-repeat top left;
+    background-size: 300px 170px;
+    position: relative;
+    box-shadow: 0px 0px 15px #343434;
+}
+.header span {
+    color: #FFFFFF;
+    font-size: 65px;
+    position: absolute;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: default;
+}
+
+/* CONTENT */
+.content {
+    margin-top: 20px;
+}
+.content .padding-fix {
+    padding-top: 8px;
+}
+.content .vertical-separator {
+    border-right: 1px solid #59AD33;
+}
+.btn-green {
+    background-color: #59AD33;
+    border-color: #35661e;
+}
+.btn-green:hover, .btn-green:focus, .btn-green:active {
+    background-color: #488A2A;
+    border-color: #35661e;
+}
+
+/* DIALOG */
+#manage_zoonyms_dialog div.modal-dialog {
+    width: 400px;
+}
+#manage_zoonyms_dialog div.modal-body {
+    overflow-y: auto;
+    max-height: 65vh;
+}
+#manage_zoonyms_dialog li.list-group-item div.edit-remove {
+    visibility: hidden;
+}
+#manage_zoonyms_dialog li.list-group-item:hover div.edit-remove {
+    visibility: visible;
 }

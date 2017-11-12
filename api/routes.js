@@ -10,7 +10,8 @@ let Routes = function (app) {
         .get(controllers.listFiles.bind(controllers));
     app.route('/zoonyms')
         .get(controllers.listZoonyms.bind(controllers))
-        .post(controllers.addZoonym.bind(controllers))
+        .post(controllers.addZoonym.bind(controllers));
+    app.route('/zoonyms/:zoonymId')
         .put(controllers.editZoonym.bind(controllers))
         .delete(controllers.deleteZoonym.bind(controllers));
 };
