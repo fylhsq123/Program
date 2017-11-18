@@ -5,40 +5,48 @@ const mongodb = require('mongodb');
 class Controllers {
     constructor (db) {
         this.db = db;
-        this.likePattern = /(\w+\W+){10}like(\W+\w+){10}/;
-        this.asAsPattern = /(\w+\W+){10}as(\W+\w+){1,5}\W+as(\W+\w+){10}/;
         this.uploadPath = path.resolve(__dirname + '/../uploads');
     }
 
-    static processSearch (filePath, fileName, pattern, numLeft, numRight, zoonym = []) {
-        return new Promise((resolve, reject) => {
-            console.log({term: pattern, flags: 'ig'}, filePath, fileName);
-            findInFiles.find({term: pattern, flags: 'ig'}, filePath, fileName).then((result) => {
+    static getPatterns (numLeft, numRight, zoonym = []) {
+        var like = {
+            similes: new RegExp(`(\\w+\\W+){0,${numLeft}}like(\\W+\\w+){1,${numRight}}`),
+            zoonyms: zoonym ? new RegExp(`like.+\\b(${zoonym.join('|')})\\b|\\b(${zoonym.join('|')})-like`, 'gi') : null
+        };
+        var as = {
+            similes: new RegExp(`(\\w+\\W+){0,${numLeft}}as(\\W+\\w+){1,5}\\W+as(\\W+\\w+){1,${numRight}}`),
+            zoonyms: zoonym ? new RegExp(`\\bas\\b.+\\bas\\b.+\\b(${zoonym.join('|')})\\b`) : null
+        };
+        return {like, as};
+    }
+
+    static processSearch (filePath, fileName, patterns) {
+        if (patterns) {
+            return findInFiles.find({term: patterns.similes, flags: 'ig'}, filePath, fileName).then((result) => {
                 var returnRes = [];
                 for (let key in result) {
                     returnRes = result[key].matches;
                 }
-                console.log(result);
-                if (zoonym.length) {
-                    let regexp = new RegExp('like.+\\b(' + zoonym.join('|') + ')\\b|\\b(' + zoonym.join('|') + ')-like', 'gi');
+                if (patterns.zoonyms) {
                     returnRes = returnRes.filter((elem) => {
-                        return regexp.test(elem);
+                        return patterns.zoonyms.test(elem);
                     });
                 }
-                resolve(returnRes);
-            }).catch((err) => {
-                reject(err);
+                return returnRes || [];
             });
-        });
+        } else {
+            throw new Error('Please, select connecting word');
+        }
     }
 
     findSimiles (request, response, next) {
         var numLeft = parseInt(request.query.numLeft) || 5,
             numRight = parseInt(request.query.numRight) || 5,
             zoonym = request.query.zoonym || [],
-            fileName = request.query.file;
+            fileName = request.query.file,
+            patterns = Controllers.getPatterns(numLeft, numRight, zoonym);
         if (fileName) {
-            Controllers.processSearch(this.uploadPath, fileName, this.likePattern, numLeft, numRight, zoonym).then((result) => {
+            Controllers.processSearch(this.uploadPath, fileName, patterns[request.params.connectingWord]).then((result) => {
                 response.status(200).send(result);
             }).catch((err) => {
                 next(err);
@@ -48,6 +56,7 @@ class Controllers {
         }
     }
 
+    /***** Listing text files *****/
     listFiles (request, response, next) {
         fs.readdir(this.uploadPath, (err, result) => {
             if (err) {
@@ -58,6 +67,7 @@ class Controllers {
         });
     }
 
+    /***** Managing zoonyms *****/
     listZoonyms (request, response, next) {
         mongodb.connect(this.db,(err, db) => {
             if (err) {
@@ -73,7 +83,6 @@ class Controllers {
             }
         });
     }
-
     addZoonym (request, response, next) {
         mongodb.connect(this.db,(err, db) => {
             if (err) {
@@ -93,7 +102,6 @@ class Controllers {
             }
         });
     }
-
     editZoonym (request, response, next) {
         mongodb.connect(this.db,(err, db) => {
             if (err) {
@@ -117,7 +125,6 @@ class Controllers {
             }
         });
     }
-
     deleteZoonym (request, response, next) {
         mongodb.connect(this.db,(err, db) => {
             if (err) {
