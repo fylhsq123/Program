@@ -3,11 +3,15 @@ body {
 }
 /* HEADER */
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 170px;
     background: #59AD33 url('./images/animals.jpg') no-repeat top left;
     background-size: 300px 170px;
-    position: relative;
     box-shadow: 0px 0px 15px #343434;
+    z-index: 1;
 }
 .header span {
     color: #FFFFFF;
@@ -21,13 +25,18 @@ body {
 
 /* CONTENT */
 .content {
-    margin-top: 20px;
+    padding-top: 190px;
 }
 .content .padding-fix {
     padding-top: 8px;
+    position: fixed;
+    z-index: 1;
 }
 .content .vertical-separator {
     border-right: 1px solid #59AD33;
+}
+.content .result-table {
+    float: right;
 }
 .btn-green {
     background-color: #59AD33;
@@ -51,4 +60,15 @@ body {
 }
 #manage_zoonyms_dialog li.list-group-item:hover div.edit-remove {
     visibility: visible;
+}
+
+div#loading {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: none;
+    background: rgba(100,100,100,0.5) url(images/loading.gif) no-repeat center;
+    z-index: 100;
 }
