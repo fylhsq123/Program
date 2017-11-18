@@ -168,6 +168,7 @@ function setEventListeners () {
         if (isValidNumber($('#numWords_left').val() && $('#numWords_right').val())) {
             var $results = $('#results tbody').empty();
             var $resNumber = $('#resNumber').empty();
+            $('#diagram-container').empty();
             sendRequest('/findSimile/' + $('#connectingWord').val(), {
                 method: 'GET',
                 data: {
@@ -188,7 +189,7 @@ function setEventListeners () {
                         $results.append('<tr><td>' + element + '</td></tr>');
                     }
                 }
-                if ($('#zoonym').val().length > 1) {
+                if ($('#zoonym').val().length > 1 && resLen > 1) {
                     drawDiagram();
                 }
             });
