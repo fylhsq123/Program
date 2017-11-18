@@ -25,7 +25,6 @@ function clientErrorHandler (err, req, res, next) {
                 'msg': err.msg || err.message
             }
         });
-    next();
 }
 app.use(clientErrorHandler);
 
