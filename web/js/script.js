@@ -3,10 +3,13 @@ var editRemoveBtnGroup = '<div class="btn-group pull-right edit-remove"><button 
     okCancelBtnGroup = '<div class="btn-group"><button type="button" class="btn btn-success btn-xs ok-button" aria-label="OK"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button><button type="button" class="btn btn-danger btn-xs cancel-button" aria-label="Cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
 
 function sendRequest (url, config, callback) {
+    $('#loading').show();
     $.ajax(url, config).done(function (res) {
         callback(null, res);
     }).fail(function (err) {
         callback(err);
+    }).always(function () {
+        $('#loading').hide();
     });
 }
 
