@@ -8,6 +8,9 @@
     <link rel="shortcut icon" href="./css/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/highcharts.js"></script>
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
 </head>
 <body>
     <div class="container-fluid">
@@ -67,10 +70,11 @@
                 </div>
             </div>
             <div class="col-md-9 result-table">
+                <div id="diagram-container"></div>
                 <table class="table table-hover" id="results">
                     <thead>
                         <tr>
-                            <th>Results</th>
+                            <th>Similes <span id="resNumber"></span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,8 +107,6 @@
     </div>
     <div id="loading"></div>
 
-    <script src="./js/jquery-3.2.1.min.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
     <script src="./js/script.js"></script>
 </body>
 </html>

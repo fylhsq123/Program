@@ -1,5 +1,6 @@
 body {
     background-color: #F4FFEE;
+    min-width: 1300px;
 }
 /* HEADER */
 .header {
@@ -37,6 +38,11 @@ body {
 }
 .content .result-table {
     float: right;
+}
+#resNumber {
+    font-weight: normal;
+    font-style: italic;
+    color: #747474;
 }
 .btn-green {
     background-color: #59AD33;

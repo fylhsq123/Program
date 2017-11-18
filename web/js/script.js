@@ -1,6 +1,10 @@
 var $manageZoonymsDialog = $('#manage_zoonyms_dialog');
 var editRemoveBtnGroup = '<div class="btn-group pull-right edit-remove"><button type="button" class="btn btn-primary btn-xs edit-button" aria-label="Edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button><button type="button" class="btn btn-danger btn-xs remove-button" aria-label="Remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>',
     okCancelBtnGroup = '<div class="btn-group"><button type="button" class="btn btn-success btn-xs ok-button" aria-label="OK"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button><button type="button" class="btn btn-danger btn-xs cancel-button" aria-label="Cancel"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
+var cache = {
+    data: [],
+    statistic: {}
+};
 
 function sendRequest (url, config, callback) {
     $('#loading').show();
@@ -68,6 +72,74 @@ function setValidators () {
     $('#numWords_right').keyup(validateNumbers);
 }
 
+function drawDiagram () {
+    /* Create data for a diagram */
+    var zoonyms = $('#zoonym').val();
+    var zoonymsRegexp = new RegExp('\\b(' + zoonyms.join('|') + ')\\b', 'i');
+    var diagramData = [];
+    cache.statistic = {};
+    for (let i = 0; i < cache.data.length; i++) {
+        var element = cache.data[i];
+        var zoonym = element.match(zoonymsRegexp)[0].toUpperCase();
+        if (cache.statistic[zoonym] >= 0) {
+            cache.statistic[zoonym]++;
+        } else {
+            cache.statistic[zoonym] = 1;
+        }
+    }
+    for (const key in cache.statistic) {
+        if (cache.statistic.hasOwnProperty(key)) {
+            const element = cache.statistic[key];
+            diagramData.push({name: key, count: element, y: element / cache.data.length * 100, total: cache.data.length});
+        }
+    }
+    /* Diagram configurations */
+    // Create the chart
+    Highcharts.chart('diagram-container', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Frequency of zoonyms'
+        },
+        subtitle: {
+            text: $('#filesList').val()
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frequency'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}%'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.count:.0f}</b> of {point.total:.0f} total<br/>'
+        },
+
+        series: [{
+            name: 'Zoonyms',
+            colorByPoint: true,
+            data: diagramData
+        }]
+    });
+}
+
 function setEventListeners () {
     $('#manage_zoonyms_dialog').on('show.bs.modal', function () {
         sendRequest('/zoonyms', {
@@ -94,6 +166,8 @@ function setEventListeners () {
     });
     $('#find').click(function () {
         if (isValidNumber($('#numWords_left').val() && $('#numWords_right').val())) {
+            var $results = $('#results tbody').empty();
+            var $resNumber = $('#resNumber').empty();
             sendRequest('/findSimile/' + $('#connectingWord').val(), {
                 method: 'GET',
                 data: {
@@ -106,11 +180,16 @@ function setEventListeners () {
                 if (err) {
                     processError(err);
                 } else {
-                    var $results = $('#results tbody').empty();
-                    for (var i = 0; i < res.length; i++) {
+                    cache.data = res;
+                    var resLen = res.length;
+                    $resNumber.text('(' + resLen + ' similes found)');
+                    for (var i = 0; i < resLen; i++) {
                         var element = res[i];
                         $results.append('<tr><td>' + element + '</td></tr>');
                     }
+                }
+                if ($('#zoonym').val().length > 1) {
+                    drawDiagram();
                 }
             });
         }
